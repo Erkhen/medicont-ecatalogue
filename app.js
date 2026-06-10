@@ -13,6 +13,18 @@ CATEGORIES.forEach(c => catMap[c.id] = c.label);
 let activeCategory = 'all';
 let searchQuery = '';
 
+/* ── Filter toggle (mobile) ── */
+const tabsWrap  = document.getElementById('filterTabsWrap');
+const toggleBtn = document.getElementById('filterToggle');
+const toggleLabel = document.getElementById('filterToggleLabel');
+
+if (toggleBtn) {
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = tabsWrap.classList.toggle('open');
+    toggleBtn.classList.toggle('open', isOpen);
+  });
+}
+
 /* ── Category label ── */
 function getCatLabel(id) {
   const c = CATEGORIES.find(x => x.id === id);
@@ -126,6 +138,13 @@ CATEGORIES.forEach(cat => {
     activeCategory = cat.id;
     tabsEl.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    // Toggle label шинэчлэх
+    if (toggleLabel) toggleLabel.textContent = cat.label;
+    // Утасанд сонгосны дараа хаах
+    if (window.innerWidth < 769 && tabsWrap) {
+      tabsWrap.classList.remove('open');
+      toggleBtn.classList.remove('open');
+    }
     render();
   });
   tabsEl.appendChild(btn);
