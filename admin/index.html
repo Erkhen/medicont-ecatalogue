@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админ — Medicont Каталог</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <nav class="admin-nav">
+    <img src="medicont/images/medicontlogo.png" alt="Medicont" class="logo-img" />
+    <span class="admin-badge">Админ</span>
+    <a href="../index.html" class="nav-link">← Каталог харах</a>
+  </nav>
+
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <div>
+        <div class="page-eyebrow">Удирдлагын хэсэг</div>
+        <h1 class="page-title">Бүтээгдэхүүн</h1>
+      </div>
+      <button class="btn-primary" id="openAddModal">+ Шинэ бүтээгдэхүүн</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table class="product-table" id="productTable">
+        <thead>
+          <tr>
+            <th>Бүтээгдэхүүн</th>
+            <th>Код</th>
+            <th>Ангилал</th>
+            <th>Гарал</th>
+            <th>Үйлдэл</th>
+          </tr>
+        </thead>
+        <tbody id="productTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox">
+      <div class="modal-head">
+        <h2 class="modal-title" id="modalTitle">Бүтээгдэхүүн нэмэх</h2>
+        <button class="modal-close" id="modalClose">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="2" y1="2" x2="14" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="14" y1="2" x2="2" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <form id="productForm" class="product-form">
+        <input type="hidden" id="editId" />
+
+        <div class="form-grid">
+          <div class="form-group span-2">
+            <label>Барааны нэр *</label>
+            <input type="text" id="fName" required placeholder="жш. Phacoemulsification System" />
+          </div>
+          <div class="form-group">
+            <label>Барааны код *</label>
+            <input type="text" id="fCode" required placeholder="MED-XXX-000" />
+          </div>
+          <div class="form-group">
+            <label>Ангилал *</label>
+            <select id="fCategory" required></select>
+          </div>
+          <div class="form-group">
+            <label>Хэмжээ</label>
+            <input type="text" id="fSize" placeholder="жш. 380 × 320 × 280 мм" />
+          </div>
+          <div class="form-group">
+            <label>Гарал үүсэл</label>
+            <input type="text" id="fOrigin" placeholder="жш. Герман" />
+          </div>
+          <div class="form-group span-2">
+            <label>Зургийн зам</label>
+            <input type="text" id="fImage" placeholder="images/product-name.jpg" />
+            <div class="form-hint">images/ хавтас дотор хадгалаад замыг оруулна</div>
+          </div>
+          <div class="form-group span-2">
+            <label>Тайлбар</label>
+            <textarea id="fDescription" rows="4" placeholder="Бүтээгдэхүүний дэлгэрэнгүй тайлбар..."></textarea>
+          </div>
+          <div class="form-group span-2">
+            <label>Техникийн үзүүлэлт</label>
+            <div id="specsContainer"></div>
+            <button type="button" class="btn-ghost" id="addSpecBtn">+ Үзүүлэлт нэмэх</button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-ghost" id="cancelBtn">Цуцлах</button>
+          <button type="submit" class="btn-primary" id="saveBtn">Хадгалах</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete confirm -->
+  <div class="modal-overlay" id="deleteOverlay">
+    <div class="modal-box modal-sm">
+      <div class="modal-head">
+        <h2 class="modal-title">Устгах уу?</h2>
+      </div>
+      <p class="delete-msg" id="deleteMsg">Энэ бүтээгдэхүүнийг устгахдаа итгэлтэй байна уу?</p>
+      <div class="form-actions">
+        <button class="btn-ghost" id="deleteCancelBtn">Цуцлах</button>
+        <button class="btn-danger" id="deleteConfirmBtn">Устгах</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Output panel -->
+  <div class="output-panel" id="outputPanel" hidden>
+    <div class="output-head">
+      <strong>products.js — шинэчлэгдсэн код</strong>
+      <button class="btn-ghost btn-sm" id="copyBtn">Хуулах</button>
+      <button class="btn-ghost btn-sm" id="closeOutputBtn">Хаах</button>
+    </div>
+    <pre id="outputCode"></pre>
+  </div>
+
+  <script src="../products.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
