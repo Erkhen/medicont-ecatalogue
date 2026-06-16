@@ -6,7 +6,7 @@
   <title>Бүтээгдэхүүний каталог — Medicont</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -14,6 +14,11 @@
   <!-- Sticky Nav -->
   <nav class="sticky-nav" id="stickyNav">
     <img src="medicont/images/medicontlogo.png" alt="Medicont" class="logo-img" />
+    <!-- Mobile: хайх товч -->
+    <button class="nav-search-btn" id="openDrawer" aria-label="Хайх, шүүх">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/><line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Хайх
+    </button>
   </nav>
 
   <!-- Header -->
@@ -21,30 +26,19 @@
     <div class="header-inner">
       <div class="header-label">Эмнэлгийн хэрэгсэл</div>
       <h1 class="header-title">Бүтээгдэхүүний<br><em>каталог</em></h1>
-      <p class="header-sub">Нүдний мэс засал болон оношилгооны чиглэлийн тэргүүлэх бүтээгдэхүүнүүд</p>
     </div>
   </header>
 
-  <!-- Controls: search + filter -->
-  <div class="controls-bar">
-  <div class="controls-inner">
-    <div class="search-wrap">
-      <svg class="search-icon" viewBox="0 0 16 16" fill="none">
-        <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/>
-        <line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      <input class="search-input" id="searchInput" type="search"
-        placeholder="Бүтээгдэхүүн хайх..." autocomplete="off" />
-    </div>
-    <button class="filter-toggle" id="filterToggle">
-      <span id="filterToggleLabel">Бүгд</span>
-      <span class="filter-toggle-arrow"><svg viewBox="0 0 14 14" fill="none" width="14" height="14"><polyline points="3,5 7,9 11,5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </button>
-    <div class="filter-tabs-wrap" id="filterTabsWrap">
+  <!-- Desktop: Controls bar -->
+  <div class="controls-bar" id="controlsBar">
+    <div class="controls-inner">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/><line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input class="search-input" id="searchInput" type="search" placeholder="Бүтээгдэхүүн хайх..." autocomplete="off" />
+      </div>
       <div class="filter-tabs" id="filterTabs"></div>
     </div>
   </div>
-</div>
 
   <!-- Cards grid -->
   <main class="main">
@@ -58,7 +52,7 @@
     </div>
   </main>
 
-  <!-- Modal -->
+  <!-- Product modal -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box" id="modalBox" role="dialog" aria-modal="true">
       <button class="modal-close" id="modalClose" aria-label="Хаах">
@@ -66,6 +60,19 @@
       </button>
       <div class="modal-content" id="modalContent"></div>
     </div>
+  </div>
+
+  <!-- Mobile drawer: хайлт + ангилал -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Хайлт ба ангилал">
+    <div class="drawer-handle"></div>
+    <div class="drawer-section-title">Хайлт</div>
+    <div class="drawer-search">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/><line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="search" id="drawerSearchInput" placeholder="Бүтээгдэхүүн хайх..." autocomplete="off" />
+    </div>
+    <div class="drawer-section-title">Ангилал</div>
+    <div class="drawer-cats" id="drawerCats"></div>
   </div>
 
   <script src="products.js"></script>
