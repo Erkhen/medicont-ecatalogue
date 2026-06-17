@@ -181,6 +181,10 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
 
 .drawer-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); padding: 0 20px; margin-bottom: 10px; }
 
+.drawer-top-row { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; margin-bottom: 10px; }
+.drawer-close-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); color: var(--fg-mid); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--trans); flex-shrink: 0; }
+.drawer-close-btn:hover { background: var(--fg); color: #fff; border-color: var(--fg); }
+
 .drawer-search { margin: 0 16px 20px; position: relative; display: flex; align-items: center; }
 .drawer-search svg { position: absolute; left: 12px; color: var(--fg-muted); width: 15px; height: 15px; pointer-events: none; }
 .drawer-search input { width: 100%; padding: 11px 14px 11px 36px; border: 1px solid var(--border-strong); border-radius: var(--r-md); font-family: var(--sans); font-size: 14px; color: var(--fg); background: var(--bg); outline: none; -webkit-appearance: none; }

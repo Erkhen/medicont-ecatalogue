@@ -132,6 +132,8 @@ function closeDrawer() {
 }
 if (openDrawerBtn) openDrawerBtn.addEventListener('click', openDrawer);
 drawerOverlay.addEventListener('click', closeDrawer);
+const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
 
 /* ── Build filter tabs (desktop) + drawer cats (mobile) ── */
 const tabsEl = document.getElementById('filterTabs');
