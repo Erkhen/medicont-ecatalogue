@@ -25,13 +25,13 @@
 }
 
 :root.dark {
-  --bg:           #161512;
-  --bg-card:      #1E1C18;
+  --bg:           #121110;
+  --bg-card:      #232019;
   --fg:           #F2F0EB;
   --fg-mid:       #B0ACA3;
   --fg-muted:     #74716A;
-  --border:       #2C2A25;
-  --border-strong:#3D3A33;
+  --border:       #3A3730;
+  --border-strong:#4D4940;
   --accent:       #4ADE80;
   --accent-bg:    #1C2E22;
   --accent-text:  #86EFAC;
@@ -133,8 +133,11 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
 /* ── Product Card ── */
 .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-xl); display: flex; flex-direction: column; overflow: hidden; cursor: default; transition: var(--trans); position: relative; animation: fadeUp 0.4s ease both; }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+:root.dark .card { box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 2px 8px rgba(0,0,0,0.3); }
+:root.dark .card:hover { box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, var(--shadow-md); }
 
 .card-img-wrap { width: 100%; aspect-ratio: 4/3; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+:root.dark .card-img-wrap { background: linear-gradient(135deg, #1A1814, #100F0D); }
 .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
 .card:hover .card-img { transform: scale(1.03); }
 .card-img-placeholder { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--fg-muted); }
