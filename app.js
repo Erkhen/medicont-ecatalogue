@@ -9,6 +9,7 @@ const ICONS = {
   scan:  `<svg viewBox="0 0 16 16" fill="none"><path d="M2 5V3a1 1 0 0 1 1-1h2M14 5V3a1 1 0 0 0-1-1h-2M2 11v2a1 1 0 0 0 1 1h2M14 11v2a1 1 0 0 1-1 1h-2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="3" y1="8" x2="13" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
   dot:   `<svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>`,
   drop:  `<svg viewBox="0 0 16 16" fill="none"><path d="M8 2C8 2 3 8 3 11a5 5 0 0 0 10 0C13 8 8 2 8 2Z" stroke="currentColor" stroke-width="1.3"/></svg>`,
+  pdf:   `<svg viewBox="0 0 16 16" fill="none"><path d="M4 1.5h6L13 4.5v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.5 1.5V5h3.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="5" y1="8.5" x2="11" y2="8.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`,
 };
 
 const CAT_ICONS = {
@@ -92,6 +93,9 @@ function buildModalContent(p) {
       <div class="modal-description">${p.description}</div>
     </div>
     ${specsHtml}
+    <button class="pdf-download-btn" id="pdfDownloadBtn" data-id="${p.id}">
+      ${ICONS.pdf} PDF татах
+    </button>
   `;
 }
 
@@ -105,6 +109,138 @@ function openModal(id) {
   modalContent.innerHTML = buildModalContent(p);
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  const pdfBtn = document.getElementById('pdfDownloadBtn');
+  if (pdfBtn) pdfBtn.addEventListener('click', () => generateProductPDF(p));
+}
+
+/* ── PDF Specsheet (HTML → canvas → PDF, кирилл бичгийг зөв дэмжинэ) ── */
+function generateProductPDF(p) {
+  const btn = document.getElementById('pdfDownloadBtn');
+  const originalLabel = btn ? btn.innerHTML : '';
+  if (btn) { btn.innerHTML = 'PDF бэлдэж байна...'; btn.disabled = true; }
+
+  // Хэвлэх загвар HTML-ийг далд контейнерт үүсгэнэ
+  const sheet = document.createElement('div');
+  sheet.id = 'pdfSheetTemplate';
+  sheet.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;background:#fff;font-family:"DM Sans",Arial,sans-serif;color:#1A1916;';
+
+  const specsHtml = (p.specs && p.specs.length)
+    ? `<div style="margin-top:28px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:#A5A39E;margin-bottom:12px;">ТЕХНИКИЙН ҮЗҮҮЛЭЛТ</div>
+        ${p.specs.map(s => `
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F0EEE9;font-size:13px;">
+            <span style="color:#A5A39E;">${s.label}</span>
+            <span style="color:#1A1916;font-weight:600;">${s.value}</span>
+          </div>
+        `).join('')}
+      </div>`
+    : '';
+
+  const imgBlockHtml = p.image
+    ? `<div style="width:100%;height:280px;background:#F5F3EE;border-radius:8px;overflow:hidden;margin-bottom:24px;display:flex;align-items:center;justify-content:center;">
+        <img id="pdfSheetImg" src="${p.image}" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;" />
+      </div>`
+    : '';
+
+  sheet.innerHTML = `
+    <div style="padding:0;">
+      <div style="background:#1A1916;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;">
+        <img id="pdfSheetLogo" src="medicont/images/medicontlogo.png" style="height:26px;width:auto;display:block;" />
+        <span style="color:#999;font-size:11px;">e-catalogue</span>
+      </div>
+      <div style="padding:36px 40px 40px;">
+        ${imgBlockHtml}
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:#999;margin-bottom:10px;">${(getCatLabel(p.category) || '').toUpperCase()}</div>
+        <div style="font-size:26px;font-weight:700;color:#1A1916;line-height:1.2;margin-bottom:20px;">${p.name}</div>
+        <div style="height:1px;background:#E4E1DA;margin-bottom:22px;"></div>
+
+        <div style="display:flex;gap:32px;margin-bottom:24px;">
+          <div style="flex:1;">
+            <div style="font-size:10px;color:#A5A39E;font-weight:700;letter-spacing:0.06em;margin-bottom:5px;">КОД</div>
+            <div style="font-size:14px;font-weight:700;color:#1A1916;">${p.code}</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:10px;color:#A5A39E;font-weight:700;letter-spacing:0.06em;margin-bottom:5px;">ГАРАЛ ҮҮСЭЛ</div>
+            <div style="font-size:14px;font-weight:700;color:#1A1916;">${p.origin}</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:10px;color:#A5A39E;font-weight:700;letter-spacing:0.06em;margin-bottom:5px;">ХЭМЖЭЭ</div>
+            <div style="font-size:14px;font-weight:700;color:#1A1916;">${p.size}</div>
+          </div>
+        </div>
+
+        <div style="height:1px;background:#E4E1DA;margin-bottom:24px;"></div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:#999;margin-bottom:10px;">ТАЙЛБАР</div>
+        <div style="font-size:13.5px;color:#3C3A36;line-height:1.7;">${p.description || ''}</div>
+
+        ${specsHtml}
+
+        <div style="height:1px;background:#E4E1DA;margin-top:32px;margin-bottom:14px;"></div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px;color:#A5A39E;">
+          <span>Medicont — Эмнэлгийн хэрэгслийн каталог</span>
+          <span>${new Date().toLocaleDateString('mn-MN')}</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(sheet);
+
+  function waitForImage(img) {
+    return new Promise(resolve => {
+      if (!img) { resolve(); return; }
+      if (img.complete && img.naturalWidth > 0) { resolve(); return; }
+      img.addEventListener('load', resolve);
+      img.addEventListener('error', () => {
+        const wrap = img.closest('div');
+        if (wrap && img.id === 'pdfSheetImg') wrap.remove();
+        resolve();
+      });
+      setTimeout(resolve, 4000);
+    });
+  }
+
+  function renderCanvasAndSave() {
+    html2canvas(sheet, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
+      const pageW = 210;
+      const pageH = 297;
+      const imgW = pageW;
+      const imgH = (canvas.height * imgW) / canvas.width;
+
+      if (imgH <= pageH) {
+        pdf.addImage(imgData, 'PNG', 0, 0, imgW, imgH);
+      } else {
+        let heightLeft = imgH;
+        let position = 0;
+        pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
+        heightLeft -= pageH;
+        while (heightLeft > 0) {
+          position = heightLeft - imgH;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
+          heightLeft -= pageH;
+        }
+      }
+
+      const safeFileName = p.code ? p.code.replace(/[^a-zA-Z0-9-_]/g, '') : 'specsheet';
+      pdf.save(`${safeFileName}-specsheet.pdf`);
+
+      sheet.remove();
+      if (btn) { btn.innerHTML = originalLabel; btn.disabled = false; }
+    }).catch(() => {
+      sheet.remove();
+      if (btn) { btn.innerHTML = originalLabel; btn.disabled = false; }
+    });
+  }
+
+  const logoImg    = document.getElementById('pdfSheetLogo');
+  const productImg = document.getElementById('pdfSheetImg');
+  Promise.all([waitForImage(logoImg), waitForImage(productImg)]).then(renderCanvasAndSave);
 }
 function closeModal() {
   overlay.classList.remove('open');
