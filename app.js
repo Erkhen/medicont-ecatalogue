@@ -222,4 +222,13 @@ document.addEventListener('keydown', e => {
   }
 });
 
+/* ── Theme toggle ── */
+const themeToggle = document.getElementById('themeToggle');
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('medicont_theme', isDark ? 'dark' : 'light');
+  });
+}
+
 render();

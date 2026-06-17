@@ -24,6 +24,26 @@
   --trans:        all 0.22s cubic-bezier(0.4,0,0.2,1);
 }
 
+:root.dark {
+  --bg:           #161512;
+  --bg-card:      #1E1C18;
+  --fg:           #F2F0EB;
+  --fg-mid:       #B0ACA3;
+  --fg-muted:     #74716A;
+  --border:       #2C2A25;
+  --border-strong:#3D3A33;
+  --accent:       #4ADE80;
+  --accent-bg:    #1C2E22;
+  --accent-text:  #86EFAC;
+  --info:         #5FA8E8;
+  --info-bg:      #1A2A3D;
+  --shadow-md:    0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg:    0 20px 60px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.3);
+}
+
+html { transition: background 0.25s ease; }
+body { transition: background 0.25s ease, color 0.25s ease; }
+
 html { font-size: 15px; }
 body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
@@ -35,10 +55,29 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
   border-bottom: 1px solid var(--border);
   padding: 12px 32px;
   display: flex; align-items: center; justify-content: space-between;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, background 0.25s ease, border-color 0.25s ease;
 }
+:root.dark .sticky-nav { background: rgba(22,21,18,0.92); }
 .sticky-nav.scrolled { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
 .logo-img { height: 28px; width: auto; display: block; object-fit: contain; }
+
+.nav-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+.theme-toggle {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--fg-mid);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--trans);
+  position: relative;
+}
+.theme-toggle:hover { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.theme-toggle .icon-moon { display: none; }
+:root.dark .theme-toggle .icon-sun { display: none; }
+:root.dark .theme-toggle .icon-moon { display: block; }
 
 /* Mobile search button — hidden on desktop */
 .nav-search-btn {
@@ -73,6 +112,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
   border-bottom: 1px solid var(--border);
   padding: 12px 32px;
 }
+:root.dark .controls-bar { background: rgba(22,21,18,0.92); }
 .controls-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 
 .search-wrap { position: relative; flex: 0 0 260px; }
@@ -101,6 +141,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
 .card-img-placeholder svg { width: 40px; height: 40px; opacity: 0.4; }
 .card-img-placeholder span { font-size: 11px; opacity: 0.5; }
 .card-cat-badge { position: absolute; top: 10px; left: 10px; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; background: rgba(255,255,255,0.92); color: var(--accent); border: 1px solid var(--accent-bg); backdrop-filter: blur(4px); }
+:root.dark .card-cat-badge { background: rgba(30,28,24,0.85); }
 
 .card-body { padding: 16px 18px 14px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .card-name { font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--fg); }
