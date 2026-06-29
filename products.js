@@ -152,6 +152,22 @@ var PRODUCTS = [
     ],
     extraImages: [],
     attachments: []
+  },
+  {
+    id: 10,
+    name: "test baraa",
+    code: "871238919",
+    size: "26g",
+    origin: "germany",
+    category: "iol",
+    image: "images/zurag.png",
+    description: "testtesttest",
+    specs: [
+      { label: "dhdddd", value: "12313" },
+      { label: "dadad", value: "3121131" }
+    ],
+    extraImages: [],
+    attachments: []
   }
 ];
 

@@ -55,13 +55,51 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
   border-bottom: 1px solid var(--border);
   padding: 12px 32px;
   display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
   transition: box-shadow 0.2s, background 0.25s ease, border-color 0.25s ease;
 }
 :root.dark .sticky-nav { background: rgba(22,21,18,0.92); }
 .sticky-nav.scrolled { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
-.logo-img { height: 28px; width: auto; display: block; object-fit: contain; }
+.logo-img { height: 28px; width: auto; display: block; object-fit: contain; flex-shrink: 0; }
 
-.nav-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+/* ── Nav Marquee ── */
+.nav-marquee {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  min-width: 0;
+}
+
+.nav-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: scrollLogo 32s linear infinite;
+}
+
+.nav-marquee-track img {
+  max-height: 10px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.nav-marquee-track img:hover { opacity: 0.85; }
+
+:root.dark .nav-marquee-track img {
+  opacity: 0.3;
+  filter: brightness(1.6) grayscale(0.2);
+}
+
+@media (max-width: 640px) {
+  .nav-marquee { display: none; }
+}
+
+.nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
 .theme-toggle {
   width: 34px; height: 34px;
@@ -79,7 +117,6 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
 :root.dark .theme-toggle .icon-sun { display: none; }
 :root.dark .theme-toggle .icon-moon { display: block; }
 
-/* Mobile search button — hidden on desktop */
 .nav-search-btn {
   display: none;
   align-items: center; gap: 6px;
@@ -259,6 +296,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
 
 /* ── Animations ── */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scrollLogo { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ── Desktop ── */
 @media (min-width: 641px) {
@@ -287,6 +325,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--fg); min-he
   .modal-content { padding: 20px 20px 28px; }
   .modal-name { font-size: 22px; }
 }
+
 @media (max-width: 380px) {
   .cards-grid { grid-template-columns: 1fr; }
 }
