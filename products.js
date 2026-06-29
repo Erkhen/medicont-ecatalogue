@@ -1,40 +1,5 @@
 var PRODUCTS = [
   {
-    id: 1,
-    name: "Phaco",
-    code: "MED-OPH-001",
-    size: "620 × 480 × 1200 мм",
-    origin: "Герман",
-    category: "eye-surgery",
-    image: "images/zurag.png",
-    description: "Катаракт мэс заслын зориулалттай орчин үеийн факоэмульсификацийн систем. Өндөр нарийвчлалтай ультра дууны технологи ашиглан нүдний булан солих мэс заслыг хурдан, аюулгүй гүйцэтгэнэ.",
-    specs: [
-      { label: "Чадал", value: "40W" },
-      { label: "Давтамж", value: "40 kHz" },
-      { label: "Дэлгэц", value: "15" },
-      { label: "Тэжээл", value: "220V / 50Hz" }
-    ],
-    extraImages: [],
-    attachments: []
-  },
-  {
-    id: 2,
-    name: "Surgical Microscope",
-    code: "MED-OPH-002",
-    size: "Ширээний суурьтай",
-    origin: "Япон",
-    category: "eye-surgery",
-    image: "images/test.png",
-    description: "Нүдний болон нейрохирургийн мэс заслын зориулалттай, өндөр тод дүрслэлтэй хагалгааны микроскоп. Coaxial гэрэлтүүлэг, Apochromat линз системтэй.",
-    specs: [
-      { label: "Томруулалт", value: "4× – 40×" },
-      { label: "Ажлын зай", value: "175–400 мм" },
-      { label: "Гэрэлтүүлэг", value: "LED Xenon" }
-    ],
-    extraImages: [],
-    attachments: []
-  },
-  {
     id: 3,
     name: "Ophthalmic OCT Scanner",
     code: "MED-DIA-001",
@@ -149,22 +114,6 @@ var PRODUCTS = [
     specs: [
       { label: "asd", value: "123" },
       { label: "ddddd", value: "55666" }
-    ],
-    extraImages: [],
-    attachments: []
-  },
-  {
-    id: 10,
-    name: "test baraa",
-    code: "871238919",
-    size: "26g",
-    origin: "germany",
-    category: "iol",
-    image: "images/zurag.png",
-    description: "testtesttest",
-    specs: [
-      { label: "dhdddd", value: "12313" },
-      { label: "dadad", value: "3121131" }
     ],
     extraImages: [],
     attachments: []
