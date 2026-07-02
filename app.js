@@ -89,7 +89,7 @@ function buildModalContent(p) {
       <span class="modal-chip chip-size">${ICONS.ruler} ${p.size}</span>
     </div>
     <div class="modal-section">
-      <div class="modal-section-title">Тайлбар</div>
+      <div class="modal-section-title">Техникийн тодорхойлолт</div>
       <div class="modal-description">${p.description}</div>
     </div>
     ${specsHtml}
@@ -227,8 +227,8 @@ function generateProductPDF(p) {
         }
       }
 
-      const safeFileName = p.code ? p.code.replace(/[^a-zA-Z0-9-_]/g, '') : 'specsheet';
-      pdf.save(`${safeFileName}-specsheet.pdf`);
+      const safeFileName = p.name ? p.name.replace(/[^a-zA-Zа-яА-ЯөӨүҮ0-9\-_ ]/g, '').trim().replace(/\s+/g, '-') : 'medicont';
+pdf.save(`${safeFileName}-medicont.pdf`);
 
       sheet.remove();
       if (btn) { btn.innerHTML = originalLabel; btn.disabled = false; }
